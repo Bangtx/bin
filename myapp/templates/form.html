@@ -11,10 +11,12 @@
     img {
         width: 100px;
     }
+
     .img {
         width: 100px;
         margin: 0 auto;
     }
+
     .all-user {
         width: 30%;
         margin: 0 auto;
@@ -26,16 +28,33 @@
         <img src="https://uploads-ssl.webflow.com/5ef8c3bb36fe02d68a0a2012/5ef9559301f3d998d6478205_s%E1%BB%ADa%20xe%20l%C6%B0u%20%C4%91%E1%BB%99ng.gif">
     </div>
     <h1 style="text-align: center">Giao Dien Quan Tri Vien</h1>
-    <div class="all-user">
+    <table class="all-user">
         {% for user in all_user %}
-        <span style="color: red">user</span> <span>{{ user.user }}</span>
-        <span style="color: red">pass</span> <span>{{ user.passw }}</span>
-        <a href="edit/{{user.id}}"><button>sửa</button></a>
-        <a href="delete/{{user.id}}"><button>xóa</button></a>
-        <br>
+        <tr>
+            <td>
+                <span style="color: red">user</span> <span>{{ user.user }}</span>
+            </td>
+            <td>
+                <span style="color: red">pass</span> <span>{{ user.passw }}</span>
+            </td>
+            <td>
+                <a href="edit/{{user.id}}">
+                    <button>sửa</button>
+                </a>
+            </td>
+            <td>
+                <a href="delete/{{user.id}}">
+                    <button>xóa</button>
+                </a>
+            </td>
+        </tr>
         {% endfor %}
-        <a href="add_user"><button>add</button></a>
-    </div>
+        <div>
+            <a href="add_user">
+                <button>add</button>
+            </a>
+        </div>
+    </table>
 </div>
 </body>
 </html>
