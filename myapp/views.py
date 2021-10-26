@@ -74,6 +74,16 @@ class Index:
             }
         )
 
+    def add_user(self, r):
+        if r.method == 'POST':
+            user_input = r.POST.get('user')
+            pass_input = r.POST.get('pass')
+            self.check_duplicate(user_input, pass_input)
+            self.registerDB(user_input, pass_input)
+        return render(
+            request=r,
+            template_name='add.html'
+        )
 
     @classmethod
     def registerDB(cls, u, p):
@@ -84,3 +94,9 @@ class Index:
     def check_login(cls):
         user = User.objects.all()
         return list(user)
+
+    @classmethod
+    def check_duplicate(cls, user, passw):
+        user = User.objects.filter(user=user, passw=passw)
+        if user:
+            return HttpResponse('user is exits')
