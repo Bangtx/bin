@@ -48,9 +48,15 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 				</div>
 				{% if is_login %}
 				<span>login ok</span>
+				<script>
+					alert("login ok");
+				</script>
 				{% endif %}
 				{% if is_register %}
 				<span>register ok</span>
+				<script>
+					alert("register ok");
+				</script>
 				{% endif %}
 			</form>
 		</div>
