@@ -1,12 +1,8 @@
-from builtins import set
-from select import select
-from smtpd import usage
+from importlib.resources import path
 
 from django.shortcuts import render
 from .models import User
-
-# Create your views here.
-from setuptools.command.register import register
+from django.http import HttpResponse
 
 
 class Index:
@@ -34,6 +30,47 @@ class Index:
             context={
                 'is_login': login,
                 'is_register': register
+            }
+        )
+
+    def admin(self, r):
+        all_user = User.objects.all()
+        return render(
+            request=r,
+            template_name='form.html',
+            context={
+                'all_user': all_user
+            }
+        )
+
+    def edit_user(self, r, id):
+        user = User.objects.get(id=id).user
+        passw = User.objects.get(id=id).passw
+        print(user, passw)
+        if r.method == 'POST':
+            user_input = r.POST.get('user')
+            pass_input = r.POST.get('pass')
+            u = User.objects.get(id=id)
+            u.user = user_input
+            u.passw = pass_input
+            u.save()
+            return HttpResponse('update ok')
+        return render(request=r, template_name='edit.html',
+                      context={
+                          'user': user,
+                          'passw': passw
+                      })
+
+    def delete_user(self, r, id):
+        u = User.objects.get(id=id)
+        if u:
+            u.delete()
+        all_user = User.objects.all()
+        return render(
+            request=r,
+            template_name='form.html',
+            context={
+                'all_user': all_user
             }
         )
 
